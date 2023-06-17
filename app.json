@@ -1,0 +1,32 @@
+{
+  "expo": {
+    "name": "daSoBoleia_App",
+    "slug": "daSoBoleia_App",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/bigLogoLogin.png",
+      "resizeMode": "container",
+      "backgroundColor": "#145940"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.IOS.daSoBoleia"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.Android.daSoBoleia"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}
