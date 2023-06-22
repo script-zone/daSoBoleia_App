@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { View, TextInput, Text } from "react-native";
 
 
@@ -11,8 +11,8 @@ export function InputDeBusca(){
             <View className="w-full h-16 items-center justify-center">
                 <TextInput 
                     className='w-full h-12 text-gray700 text-xs rounded-md my-6 pl-5 bg-gray500'
-                    placeholder="Ex: Marginal ou Campus Universitário"
                     placeholderTextColor={'#5B5B60'}
+                    placeholder="Ex: Marginal ou Campus Universitário"
                 />
                 
             </View>

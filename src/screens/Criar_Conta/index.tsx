@@ -4,7 +4,8 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { useNavigation } from '@react-navigation/native'
 import { StatusBar } from 'expo-status-bar'
 import { FormCriarConta } from '../../components/FormCriarConta';
-import ButtonBack from '../../components/ButtonBack';
+
+import { ButtonBack } from '../../components/Buttons';
 
 const imgBackground = require('../../../assets/Welcome.png')
 
@@ -18,7 +19,7 @@ export function CriarConta() {
                             <StatusBar 
                                 style='light'
                             />
-                            <View className='ml-5 mt-10'>
+                            <View className='ml-2 mt-10'>
                                 <ButtonBack action={() => {}}/>
                             </View>
                             <View className='mx-5'>

@@ -1,9 +1,7 @@
 import React from 'react'
 import { View, Text, Image, ScrollView } from 'react-native';
-import ButtonRegistar  from '../../../components/ButtonRegistarViatura';
-import ButtonEditar  from '../../../components/ButtonEditar';
-import { FormCriarConta } from '../../../components/FormCriarConta';
 
+import { ButtonEdit, ButtonRegister } from "../../../components/Buttons";
 
 const logo = require('../../../../assets/user.png')
 
@@ -18,8 +16,8 @@ export function Perfil(){
                     <Text className='text-2xl font-roboto700Bold text-white500'>1 000 000kz</Text>
                 </View>
                 <View className='flex-row items-center justify-center'>
-                    <ButtonRegistar name={'Registar Viatura'} action={() => {}}/>
-                    <ButtonEditar action={() => {}}/>
+                    <ButtonRegister wrapperStyle='w-1/3 mr-1 bg-greenLigth' description={'Registar Viatura'} action={() => {}}/>
+                    <ButtonEdit wrapperStyle='w-15 mr-1 p-2 bg-greenLigth' action={() => {}}/>
                 </View>
 
                 <View className='flex-1 m-5'>
