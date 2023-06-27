@@ -1,11 +1,11 @@
 import React from 'react';
 import { Dimensions ,View, Text, ImageBackground,SafeAreaView , ScrollView, TouchableWithoutFeedback, Keyboard } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { useNavigation } from '@react-navigation/native'
-import { StatusBar } from 'expo-status-bar'
-import { FormCriarConta } from '../../components/FormCriarConta';
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view"
+import { useNavigation } from "@react-navigation/native"
+import { StatusBar } from "expo-status-bar"
+import { FormCriarConta } from "../../components/FormCriarConta";
 
-import { ButtonBack } from '../../components/Buttons';
+import { ButtonBack } from "../../components/Buttons";
 
 const imgBackground = require('../../../assets/Welcome.png')
 

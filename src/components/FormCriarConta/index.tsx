@@ -9,19 +9,7 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import { ButtonCancel, ButtonDone, ButtonNext } from "../Buttons";
 import { DeFaultTextInput } from "../InputBase"
 
-const categories = [
-  { key: 1, value: "Professor(a)" },
-  { key: 2, value: "Funcionario(a)" },
-  { key: 3, value: "Aluno(a)" },
-  { key: 4, value: "" },
-];
-
-const Curso = [
-  { key: 1, value: "Ciências da Computação" },
-  { key: 2, value: "Matemática" },
-  { key: 3, value: "Fisica" },
-  { key: 4, value: "" },
-];
+import { Curso, categories } from '../../Datas/Uteis'
 
 
 

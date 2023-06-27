@@ -4,13 +4,14 @@ import { Dimensions } from "react-native";
 import { Entypo, FontAwesome5, Ionicons } from "@expo/vector-icons";
 import { Modalize } from "react-native-modalize";
 
-import { MinhasBoleias } from "../screens/Principal_Pages/Boleias";
-import { Inscricoes } from "../screens/Principal_Pages/Incrições";
-import { Inicio } from "../screens/Principal_Pages/Inicio";
+import { MinhasBoleias } from "../screens/Principal_Pages/My_Boleias";
+import { Inscricoes } from "../screens/Principal_Pages/My_Inscricoes";
+import { Inicio } from "../screens/Principal_Pages/home";
 import { OrganizarBoleia } from "../screens/Principal_Pages/Organizar_Boleia";
-import { Perfil } from "../screens/Principal_Pages/Perfil";
+import { Perfil } from "../screens/Principal_Pages/My_Perfil";
 import { ButtonNew } from "../components/Buttons";
 import { ModalHeader } from "../components/ModalHeader";
+import { ButtonLog_Out } from "../components/Buttons"
 
 const Tab = createBottomTabNavigator();
 
@@ -107,6 +108,9 @@ export default function TabRoutes() {
           component={Perfil}
           options={{
             headerTitle: "Meu Perfil",
+            headerRight: ( {tintColor, pressOpacity} ) => (
+              <ButtonLog_Out color={tintColor} action={() => {}} opacity={pressOpacity}/>
+              ),
             tabBarIcon: ({ size, color }) => (
               <FontAwesome5 name='user-alt' size={size} color={color} />
             ),

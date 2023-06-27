@@ -2,14 +2,7 @@ import React from "react";
 import { Text, TouchableOpacity } from "react-native";
 import { MaterialIcons, Entypo } from "@expo/vector-icons";
 
-type buttonProps = Partial<{
-  size: number;
-  icon: React.ReactNode;
-  description: string;
-  action: () => void;
-  wrapperStyle: string;
-  textStyle: string;
-}>
+import { buttonProps } from "../../Datas/Uteis"
 
 export const BaseButton = ({ description, action, wrapperStyle, icon, textStyle }: buttonProps) => {
   return (
@@ -65,3 +58,10 @@ export const ButtonRegister = (props: buttonProps) =>
 export const ButtonNext = (props: buttonProps) => (
   <BaseButton wrapperStyle='absolute top-0 right-0' {...props} />
 );
+
+
+export const ButtonLog_Out = ({ color, action, opacity }:buttonProps) => (
+      <TouchableOpacity className="mt-5 mr-2" activeOpacity={opacity} onPress={action}>
+          <Entypo name="log-out" size={20} color={color} />
+      </TouchableOpacity>
+)
