@@ -1,37 +1,63 @@
 import React,{ useState } from 'react';
-import { View, Text, Pressable, ImageBackground, Image, TextInput, SafeAreaView, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { View, ActivityIndicator, Text, Pressable, ImageBackground, Image, TextInput, SafeAreaView, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { useNavigation } from '@react-navigation/native'
 import { StatusBar } from 'expo-status-bar'
 import { FontAwesome } from '@expo/vector-icons';
 import { useForm, Controller} from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 import { ButtonConnect } from '../../components/Buttons';
-import { schema, inputLoginData } from '../../Datas/Uteis'
+import { schema, FormData } from '../../Datas/Uteis'
 import MyError from '../../components/ErrorMessage';
+import axios from 'axios';
 
 const imgBackground = require('../../../assets/Welcome.png')
 const logo = require('../../../assets/bigLogoLogin.png')
 
+const setStoreUseData = async (value:object) => {
+      await AsyncStorage.setItem('UserData', JSON.stringify(value));
+  };
+
+  const getStoreUseData = async () => {
+      const jsonValue = await AsyncStorage.getItem('UserData');
+      return jsonValue ? JSON.parse(jsonValue) : null
+  };
 
 export function Login() {
     const navigation = useNavigation()
     
-    const [{ passwordIsVisible }, setFormCreateAccount] = useState({passwordIsVisible: false,});
-    const {control, setValue, handleSubmit, formState: {errors}} = useForm<inputLoginData>({
+    const [{ passwordIsVisible, isLoading }, setFormCreateAccount] = useState({passwordIsVisible: false, isLoading:false});
+    const {control, setValue, handleSubmit, formState: {errors}} = useForm<FormData>({
         resolver: yupResolver(schema)
       })
 
-    const onSubmit = (data) => {
-        if(data.email === '1' && data.password === '1'){
-          navigation.navigate('principal');
-        }else{
-          alert('Acesso Negado');
-          setValue('email', '')
-          setValue('password','')
-        }
+    const onSubmit = (data:FormData) => {
+        setFormCreateAccount(previos => ({...previos, isLoading: true})) 
+        const url = 'https://dasoboleia.up.railway.app/api/auth/login';
+        const payload = {
+        email: data.email,
+        senha: data.password
+        };
+        axios.post(url, payload)
+        .then(response => {
+            console.log('Resposta:', response.data);
+            const { token, user } = response.data
+            const { codigo } = user
+            setStoreUseData({token, codigo})
+            navigation.navigate('principal')
+        })
+        .catch(error => {
+            alert(error.response?.data);
+            setValue('email', '')
+            setValue('password', '')
+            
+        })
+        .finally(() => {
+            setFormCreateAccount(previos => ({...previos, isLoading: false}))
+        })
     };
 
   return (
@@ -102,7 +128,7 @@ export function Login() {
                         </View>
 
                         <View className='w-full items-center '>
-                            <ButtonConnect wrapperStyle='w-full bg-greenLigth' description={'Conecte-se'} action={handleSubmit(onSubmit)} />
+                            <ButtonConnect wrapperStyle='w-full bg-greenLigth' description={isLoading ? 'Processando...' : 'Conecte-se'} action={handleSubmit(onSubmit)} />
                             <View className='flex flex-row justify-center my-6'>
                                 <Text className='text-greenLigth text-xs'>Novo em dá só Boleia? </Text>
                                 <Text className='text-blue text-xs' onPress={() => navigation.navigate('criarConta')}>Inscreva-se aqui!</Text>

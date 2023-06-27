@@ -6,9 +6,10 @@ export type inputLoginData = {
   }
 
 export const schema = yup.object({
-    email: yup.string().required('Informe o seu email'),
+    email: yup.string().required('Informe o seu email').email(),
     password: yup.string().required('Informe a sua password')
 })
+export type FormData = yup.InferType<typeof schema>;
 
 export const categories = [
   { key: 1, value: "Professor(a)" },
