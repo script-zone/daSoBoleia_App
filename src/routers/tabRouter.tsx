@@ -11,12 +11,19 @@ import { OrganizarBoleia } from "../screens/Principal_Pages/Organizar_Boleia";
 import { Perfil } from "../screens/Principal_Pages/My_Perfil";
 import { ButtonNew } from "../components/Buttons";
 import { ModalHeader } from "../components/ModalHeader";
-import { ButtonLog_Out } from "../components/Buttons"
+import { ButtonLog_Out } from "../components/Buttons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation, StackActions } from "@react-navigation/native";
 
 const Tab = createBottomTabNavigator();
 
 export default function TabRoutes() {
+  const Navigation = useNavigation();
   const { height } = Dimensions.get("screen");
+
+  async function clearLocalStored() {
+    await AsyncStorage.removeItem("@dasoboleia:UserData");
+  }
 
   const modalRef = useRef(null);
   const openModal = () => {
@@ -29,13 +36,13 @@ export default function TabRoutes() {
     <>
       <Modalize
         ref={modalRef}
-        snapPoint={height / 1.4}
-        keyboardAvoidingBehavior='height'
+        snapPoint={height}
+        keyboardAvoidingBehavior="height"
         avoidKeyboardLikeIOS={true}
         modalStyle={{
           backgroundColor: "#121214",
         }}
-        HeaderComponent={<ModalHeader titulo='Organizar Boleia' />}
+        HeaderComponent={<ModalHeader titulo="Organizar Boleia" />}
       >
         <OrganizarBoleia />
       </Modalize>
@@ -68,51 +75,66 @@ export default function TabRoutes() {
         }}
       >
         <Tab.Screen
-          name='Home'
+          name="Home"
           component={Inicio}
           options={{
             headerTitle: "Procure por uma Boleia",
-            tabBarIcon: ({ size, color }) => <Entypo name='home' size={size} color={color} />,
+            tabBarIcon: ({ size, color }) => (
+              <Entypo name="home" size={size} color={color} />
+            ),
           }}
         />
 
         <Tab.Screen
-          name='Boleias'
+          name="Boleias"
           component={MinhasBoleias}
           options={{
             headerTitle: "Minhas Boleias",
-            tabBarIcon: ({ size, color }) => <Entypo name='heart' size={size} color={color} />,
+            tabBarIcon: ({ size, color }) => (
+              <Entypo name="heart" size={size} color={color} />
+            ),
           }}
         />
 
         <Tab.Screen
-          name='Organizar'
+          name="Organizar"
           component={OrganizarBoleia}
           options={{
             tabBarLabel: "",
-            tabBarIcon: ({ size }) => <ButtonNew size={size} action={() => openModal()} />,
+            tabBarIcon: ({ size }) => (
+              <ButtonNew size={size} action={() => openModal()} />
+            ),
           }}
         />
 
         <Tab.Screen
-          name='Inscrições'
+          name="Inscrições"
           component={Inscricoes}
           options={{
             headerTitle: "Minhas Inscrições",
-            tabBarIcon: ({ size, color }) => <Ionicons name='calendar' size={size} color={color} />,
+            tabBarIcon: ({ size, color }) => (
+              <Ionicons name="calendar" size={size} color={color} />
+            ),
           }}
         />
 
         <Tab.Screen
-          name='Perfil'
+          name="Perfil"
           component={Perfil}
           options={{
             headerTitle: "Meu Perfil",
-            headerRight: ( {tintColor, pressOpacity} ) => (
-              <ButtonLog_Out color={tintColor} action={() => {}} opacity={pressOpacity}/>
-              ),
+            headerRight: ({ tintColor, pressOpacity }) => (
+              <ButtonLog_Out
+                color={tintColor}
+                action={() => {
+                  clearLocalStored();
+                  Navigation.dispatch(StackActions.replace("login"));
+                }}
+                opacity={pressOpacity}
+              />
+            ),
             tabBarIcon: ({ size, color }) => (
-              <FontAwesome5 name='user-alt' size={size} color={color} />
+              <FontAwesome5 name="user-alt" size={size} color={color} />
             ),
           }}
         />
